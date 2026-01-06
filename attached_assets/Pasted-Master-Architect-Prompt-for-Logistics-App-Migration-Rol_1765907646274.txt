@@ -1,0 +1,177 @@
+Master Architect Prompt for Logistics App Migration
+Role: Senior Frontend Architect & Full Stack Developer. Objective: Perform a 1:1 migration of an existing "Single-File HTML Prototype" (attached as reference_app.html) into a production-grade Next.js Web Application with a real-time Firebase database.
+
+Constraint: The visual design, logic, and field names must match the reference exactly, but the underlying architecture must be modern, scalable, and cloud-synced.
+
+1. Tech Stack & Environment
+Framework: Next.js 14+ (App Router).
+
+Language: TypeScript (Strict mode).
+
+Styling: Tailwind CSS.
+
+Theme Config: Primary: #2c3e50, Accent: #3498db, Success: #27ae60, Warning: #f39c12, Danger: #e74c3c.
+
+Database: Firebase Firestore (NoSQL).
+
+Icons: lucide-react.
+
+Deployment: Vercel.
+
+2. Database Schema (Firestore)
+Create a collection named shipments. The document ID should be the Invoice Number provided during creation.
+
+Data Model (TypeScript Interface):
+
+TypeScript
+
+interface ShipmentData {
+  id: string; // Document ID (e.g., "INV-500")
+  createdAt: number; // Timestamp
+  lastUpdated: number; // Timestamp
+
+  // --- Logic Toggles ---
+  shipmentType: 'with-inspection' | 'no-inspection';
+  forwarder: 'xpo' | 'hmi' | 'manual';
+  manualForwarderName: string;
+  manualMethod: 'email' | 'whatsapp';
+
+  // --- Input Fields (Mapped from HTML) ---
+  details: {
+    customer: string;      // #inp-customer
+    consignee: string;     // #inp-consignee
+    location: string;      // #inp-location
+    brand: string;         // #inp-brand
+    inspectionDate: string;// #inp-date (YYYY-MM-DD)
+    eta: string;           // #inp-eta (YYYY-MM-DD)
+    idf: string;           // #inp-idf
+    seal: string;          // #inp-seal
+    ucr: string;           // #inp-ucr
+    proforma: string;      // #inp-proforma
+    commercialInv: string; // #inp-invoice
+    container: string;     // #inp-container
+    booking: string;       // #inp-booking
+  };
+
+  // --- Reconciliation Section ---
+  commercial: {
+    invoice: string; qty: string; netWeight: string; grossWeight: string;
+  };
+  actual: {
+    invoice: string; qty: string; netWeight: string; grossWeight: string;
+    invoiceSent: boolean; // #actual-invoice-status
+  };
+
+  // --- Custom Tasks ---
+  customTasks: Array<{ id: string; text: string; completed: boolean }>;
+
+  // --- Checklist State (Boolean Map) ---
+  // Must support ALL phases logic
+  checklist: {
+    [key: string]: boolean; 
+    // Examples: 'p1_docs', 'p1_mail', 'p1_attachments', 'p1_fumigation',
+    // 'p2_mail', 'p2_attachments', 'p3a_reply', 'p3a_attachments',
+    // 'p3b_draft', 'p3b_pay', 'p3b_confirm', 
+    // 'p4_draft', 'p4_mail_xpo', 'p4_final_xpo', ... (all per forwarder)
+  };
+}
+3. Application Routes & UI Structure
+Route A: The Dashboard (/)
+Header: App Title + "New Shipment" Button.
+
+Top Stats: 3 Cards (Total Shipments, Completed, Pending).
+
+Filters: Search Bar (search by ID/Customer/Container) + Sort Dropdown (Date/Progress).
+
+The Grid: Render a responsive grid of ShipmentCard components.
+
+Card UI: Matches the "Overview" section of the reference HTML.
+
+Visuals: Title, Progress Bar (color-coded), Customer, Container, Loading Date, ETA, Status Badge.
+
+Feature: If container exists, show a "Track" link icon pointing to https://www.track-trace.com/container/list/[NUMBER].
+
+Action: "Open" button links to /shipment/[id].
+
+Route B: Shipment Detail View (/shipment/[id])
+Sticky Header:
+
+Left: Shipment ID & Status Badge.
+
+Center: Global Progress Bar (0-100%).
+
+Right: "Saving..." / "Saved" indicator (Real-time sync status).
+
+Action Bar: Theme Toggle, "Delete Shipment" (Red).
+
+Layout Structure (Vertical):
+
+Controls: Radio buttons for shipmentType and Buttons for Print actions.
+
+Input Grid: 4-column responsive grid matching the reference input-grid.
+
+Reconciliation: Two rows (Commercial vs Actual) with distinct background colors (Grey vs Light Blue).
+
+Phases (The Checklist):
+
+Phase 1, 2, 3: Render conditionally based on shipmentType === 'with-inspection'.
+
+Phase 4: Always visible. Contains the Forwarder logic toggle.
+
+4. Critical Logic Requirements
+Auto-Save (Debounce):
+
+Do not require a "Save" button.
+
+Create a custom hook useAutoSave that listens for changes in the form state.
+
+Wait 500ms after the last keystroke, then update the specific document in Firestore.
+
+Date Countdown Logic:
+
+Replicate the updateCountdown() logic. Calculate days between inspectionDate and Today.
+
+Display: "5 Days Remaining" (Blue), "Today!" (Red/Urgent), or "Passed" (Gray).
+
+Progress Calculation:
+
+Calculate percentage based only on visible checkboxes (e.g., if Phase 1 is hidden, its tasks don't count towards the total).
+
+Update the Progress Bar and Donut Chart in real-time.
+
+Print Generation (Exact Replication):
+
+Implement printDeclaration(), printUndertaking(), and printShoesUndertaking().
+
+Mechanism: These functions must open a new browser window, inject the exact HTML string templates found in the reference code (replacing variables like ${data.details.idf} with actual state), and automatically trigger window.print().
+
+Email Copy Buttons:
+
+In specific checklist steps (e.g., "Send Inspection Request"), render a "Copy Email" button.
+
+Action: Copy the pre-formatted Subject/Body to clipboard using the data currently in the state.
+
+Forwarder Logic:
+
+If xpo selected -> Show XPO specific checklist items and email template.
+
+If hmi selected -> Show HMI specific items (WhatsApp template).
+
+If manual selected -> Show inputs for Name & Method, and render generic templates.
+
+5. Deliverables Required
+Setup: Complete firebase.ts configuration file.
+
+Components:
+
+Dashboard.tsx
+
+ShipmentCard.tsx
+
+ShipmentDetail.tsx
+
+PhaseSection.tsx (Reusable component for checklist phases)
+
+PrintTemplates.ts (File containing the raw HTML strings for printing)
+
+Styles: globals.css with the specific root variables for colors/dark mode provided in the reference.
