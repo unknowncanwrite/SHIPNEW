@@ -1,15 +1,7 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { connectMongoDB, NoteModel } from '../lib/mongodb';
-
-function docToNote(doc: any) {
-  const obj = doc.toObject ? doc.toObject() : doc;
-  return {
-    id: obj._id.toString(),
-    name: obj.name,
-    notes: obj.notes,
-    createdAt: obj.createdAt,
-  };
-}
+import { db } from '../lib/db';
+import { notes } from '../../shared/schema';
+import { eq } from 'drizzle-orm';
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -21,21 +13,27 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   const { id } = req.query;
+  const noteId = Array.isArray(id) ? id[0] : id;
+
+  if (!noteId) {
+    return res.status(400).json({ error: 'Note ID is required' });
+  }
 
   try {
-    await connectMongoDB();
-
     if (req.method === 'PATCH') {
-      const doc = await NoteModel.findByIdAndUpdate(id, req.body, { new: true });
-      if (!doc) {
+      const [updated] = await db.update(notes)
+        .set(req.body)
+        .where(eq(notes.id, noteId))
+        .returning();
+      if (!updated) {
         return res.status(404).json({ error: 'Note not found' });
       }
-      return res.json(docToNote(doc));
+      return res.json(updated);
     }
 
     if (req.method === 'DELETE') {
-      const result = await NoteModel.findByIdAndDelete(id);
-      if (!result) {
+      const deleted = await db.delete(notes).where(eq(notes.id, noteId)).returning();
+      if (deleted.length === 0) {
         return res.status(404).json({ error: 'Note not found' });
       }
       return res.status(204).end();

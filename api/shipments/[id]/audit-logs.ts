@@ -1,19 +1,7 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { connectMongoDB, AuditLogModel } from '../../lib/mongodb';
-
-function docToAuditLog(doc: any) {
-  const obj = doc.toObject ? doc.toObject() : doc;
-  return {
-    id: obj._id.toString(),
-    shipmentId: obj.shipmentId,
-    action: obj.action,
-    fieldName: obj.fieldName || null,
-    oldValue: obj.oldValue || null,
-    newValue: obj.newValue || null,
-    summary: obj.summary,
-    timestamp: obj.timestamp,
-  };
-}
+import { db } from '../../lib/db';
+import { auditLogs } from '../../../shared/schema';
+import { eq, desc } from 'drizzle-orm';
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -25,13 +13,18 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   const { id } = req.query;
+  const shipmentId = Array.isArray(id) ? id[0] : id;
+
+  if (!shipmentId) {
+    return res.status(400).json({ error: 'Shipment ID is required' });
+  }
 
   try {
-    await connectMongoDB();
-
     if (req.method === 'GET') {
-      const docs = await AuditLogModel.find({ shipmentId: id }).sort({ timestamp: -1 });
-      return res.json(docs.map(docToAuditLog));
+      const result = await db.select().from(auditLogs)
+        .where(eq(auditLogs.shipmentId, shipmentId))
+        .orderBy(desc(auditLogs.timestamp));
+      return res.json(result);
     }
 
     return res.status(405).json({ error: 'Method not allowed' });

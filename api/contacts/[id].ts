@@ -1,15 +1,7 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { connectMongoDB, ContactModel } from '../lib/mongodb';
-
-function docToContact(doc: any) {
-  const obj = doc.toObject ? doc.toObject() : doc;
-  return {
-    id: obj._id.toString(),
-    name: obj.name,
-    details: obj.details,
-    createdAt: obj.createdAt,
-  };
-}
+import { db } from '../lib/db';
+import { contacts } from '../../shared/schema';
+import { eq } from 'drizzle-orm';
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -21,21 +13,27 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   const { id } = req.query;
+  const contactId = Array.isArray(id) ? id[0] : id;
+
+  if (!contactId) {
+    return res.status(400).json({ error: 'Contact ID is required' });
+  }
 
   try {
-    await connectMongoDB();
-
     if (req.method === 'PATCH') {
-      const doc = await ContactModel.findByIdAndUpdate(id, req.body, { new: true });
-      if (!doc) {
+      const [updated] = await db.update(contacts)
+        .set(req.body)
+        .where(eq(contacts.id, contactId))
+        .returning();
+      if (!updated) {
         return res.status(404).json({ error: 'Contact not found' });
       }
-      return res.json(docToContact(doc));
+      return res.json(updated);
     }
 
     if (req.method === 'DELETE') {
-      const result = await ContactModel.findByIdAndDelete(id);
-      if (!result) {
+      const deleted = await db.delete(contacts).where(eq(contacts.id, contactId)).returning();
+      if (deleted.length === 0) {
         return res.status(404).json({ error: 'Contact not found' });
       }
       return res.status(204).end();

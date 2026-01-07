@@ -1,15 +1,7 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { connectMongoDB, NoteModel } from '../lib/mongodb';
-
-function docToNote(doc: any) {
-  const obj = doc.toObject ? doc.toObject() : doc;
-  return {
-    id: obj._id.toString(),
-    name: obj.name,
-    notes: obj.notes,
-    createdAt: obj.createdAt,
-  };
-}
+import { db } from '../lib/db';
+import { notes } from '../../shared/schema';
+import { desc } from 'drizzle-orm';
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -21,20 +13,19 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   try {
-    await connectMongoDB();
-
     if (req.method === 'GET') {
-      const docs = await NoteModel.find().sort({ createdAt: -1 });
-      return res.json(docs.map(docToNote));
+      const result = await db.select().from(notes).orderBy(desc(notes.createdAt));
+      return res.json(result);
     }
 
     if (req.method === 'POST') {
       const data = req.body;
-      const doc = await NoteModel.create({
+      const [inserted] = await db.insert(notes).values({
         ...data,
+        id: crypto.randomUUID(),
         createdAt: Date.now(),
-      });
-      return res.status(201).json(docToNote(doc));
+      }).returning();
+      return res.status(201).json(inserted);
     }
 
     return res.status(405).json({ error: 'Method not allowed' });
