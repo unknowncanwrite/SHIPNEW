@@ -1,0 +1,66 @@
+Jan 07 11:29:04.59
+POST
+500
+shipnew.vercel.app
+/api/shipments
+Error [ERR_MODULE_NOT_FOUND]: Cannot find module '/var/task/api/lib/mongodb' imported from /var/task/api/shipments/index.js at finalizeResolution (node:internal/modules/esm/resolve:280:11) at moduleResolve (node:internal/modules/esm/resolve:870:10) at moduleResolveWithNodePath (node:internal/modules/esm/resolve:996:14) at defaultResolve (node:internal/modules/esm/resolve:1039:79) at #cachedDefaultResolve (node:internal/modules/esm/loader:757:20) at ModuleLoader.resolve (node:internal/modules/esm/loader:734:38) at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:317:38) at #link (node:internal/modules/esm/module_job:208:49) at process.processTicksAndRejections (node:internal/process/task_queues:105:5) { code: 'ERR_MODULE_NOT_FOUND', url: 'file:///var/task/api/lib/mongodb' } Node.js process exited with exit status: 1. The logs above can help with debugging the issue.
+Jan 07 11:29:02.08
+GET
+500
+shipnew.vercel.app
+/api/shipments
+Error [ERR_MODULE_NOT_FOUND]: Cannot find module '/var/task/api/lib/mongodb' imported from /var/task/api/shipments/index.js at finalizeResolution (node:internal/modules/esm/resolve:280:11) at moduleResolve (node:internal/modules/esm/resolve:870:10) at moduleResolveWithNodePath (node:internal/modules/esm/resolve:996:14) at defaultResolve (node:internal/modules/esm/resolve:1039:79) at #cachedDefaultResolve (node:internal/modules/esm/loader:757:20) at ModuleLoader.resolve (node:internal/modules/esm/loader:734:38) at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:317:38) at #link (node:internal/modules/esm/module_job:208:49) at process.processTicksAndRejections (node:internal/process/task_queues:105:5) { code: 'ERR_MODULE_NOT_FOUND', url: 'file:///var/task/api/lib/mongodb' } Node.js process exited with exit status: 1. The logs above can help with debugging the issue.
+Jan 07 11:29:02.08
+GET
+500
+shipnew.vercel.app
+/api/notes
+Error [ERR_MODULE_NOT_FOUND]: Cannot find module '/var/task/api/lib/mongodb' imported from /var/task/api/notes/index.js at finalizeResolution (node:internal/modules/esm/resolve:280:11) at moduleResolve (node:internal/modules/esm/resolve:870:10) at moduleResolveWithNodePath (node:internal/modules/esm/resolve:996:14) at defaultResolve (node:internal/modules/esm/resolve:1039:79) at #cachedDefaultResolve (node:internal/modules/esm/loader:757:20) at ModuleLoader.resolve (node:internal/modules/esm/loader:734:38) at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:317:38) at #link (node:internal/modules/esm/module_job:208:49) at process.processTicksAndRejections (node:internal/process/task_queues:105:5) { code: 'ERR_MODULE_NOT_FOUND', url: 'file:///var/task/api/lib/mongodb' } Node.js process exited with exit status: 1. The logs above can help with debugging the issue. Error [ERR_MODULE_NOT_FOUND]: Cannot find module '/var/task/api/lib/mongodb' imported from /var/task/api/notes/index.js at finalizeResolution (node:internal/modules/esm/resolve:280:11) at moduleResolve (node:internal/modules/esm/resolve:870:10) at moduleResolveWithNodePath (node:internal/modules/esm/resolve:996:14) at defaultResolve (node:internal/modules/esm/resolve:1039:79) at #cachedDefaultResolve (node:internal/modules/esm/loader:757:20) at ModuleLoader.resolve (node:internal/modules/esm/loader:734:38) at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:317:38) at #link (node:internal/modules/esm/module_job:208:49) at process.processTicksAndRejections (node:internal/process/task_queues:105:5) { code: 'ERR_MODULE_NOT_FOUND', url: 'file:///var/task/api/lib/mongodb' } Node.js process exited with exit status: 1. The logs above can help with debugging the issue.
+Jan 07 11:20:19.99
+POST
+500
+shipnew-88dcce502-hamzaworks01-gmailcoms-projects.vercel.app
+/api/shipments
+Error [ERR_MODULE_NOT_FOUND]: Cannot find module '/var/task/api/lib/mongodb' imported from /var/task/api/shipments/index.js at finalizeResolution (node:internal/modules/esm/resolve:280:11) at moduleResolve (node:internal/modules/esm/resolve:870:10) at moduleResolveWithNodePath (node:internal/modules/esm/resolve:996:14) at defaultResolve (node:internal/modules/esm/resolve:1039:79) at #cachedDefaultResolve (node:internal/modules/esm/loader:757:20) at ModuleLoader.resolve (node:internal/modules/esm/loader:734:38) at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:317:38) at #link (node:internal/modules/esm/module_job:208:49) at process.processTicksAndRejections (node:internal/process/task_queues:105:5) { code: 'ERR_MODULE_NOT_FOUND', url: 'file:///var/task/api/lib/mongodb' } Node.js process exited with exit status: 1. The logs above can help with debugging the issue.
+Jan 07 11:20:19.84
+POST
+500
+shipnew-88dcce502-hamzaworks01-gmailcoms-projects.vercel.app
+/api/shipments
+Error [ERR_MODULE_NOT_FOUND]: Cannot find module '/var/task/api/lib/mongodb' imported from /var/task/api/shipments/index.js at finalizeResolution (node:internal/modules/esm/resolve:280:11) at moduleResolve (node:internal/modules/esm/resolve:870:10) at moduleResolveWithNodePath (node:internal/modules/esm/resolve:996:14) at defaultResolve (node:internal/modules/esm/resolve:1039:79) at #cachedDefaultResolve (node:internal/modules/esm/loader:757:20) at ModuleLoader.resolve (node:internal/modules/esm/loader:734:38) at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:317:38) at #link (node:internal/modules/esm/module_job:208:49) at process.processTicksAndRejections (node:internal/process/task_queues:105:5) { code: 'ERR_MODULE_NOT_FOUND', url: 'file:///var/task/api/lib/mongodb' } Node.js process exited with exit status: 1. The logs above can help with debugging the issue.
+Jan 07 11:20:19.68
+POST
+500
+shipnew-88dcce502-hamzaworks01-gmailcoms-projects.vercel.app
+/api/shipments
+Error [ERR_MODULE_NOT_FOUND]: Cannot find module '/var/task/api/lib/mongodb' imported from /var/task/api/shipments/index.js at finalizeResolution (node:internal/modules/esm/resolve:280:11) at moduleResolve (node:internal/modules/esm/resolve:870:10) at moduleResolveWithNodePath (node:internal/modules/esm/resolve:996:14) at defaultResolve (node:internal/modules/esm/resolve:1039:79) at #cachedDefaultResolve (node:internal/modules/esm/loader:757:20) at ModuleLoader.resolve (node:internal/modules/esm/loader:734:38) at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:317:38) at #link (node:internal/modules/esm/module_job:208:49) at process.processTicksAndRejections (node:internal/process/task_queues:105:5) { code: 'ERR_MODULE_NOT_FOUND', url: 'file:///var/task/api/lib/mongodb' } Node.js process exited with exit status: 1. The logs above can help with debugging the issue.
+Jan 07 11:20:18.81
+POST
+500
+shipnew-88dcce502-hamzaworks01-gmailcoms-projects.vercel.app
+/api/shipments
+Error [ERR_MODULE_NOT_FOUND]: Cannot find module '/var/task/api/lib/mongodb' imported from /var/task/api/shipments/index.js at finalizeResolution (node:internal/modules/esm/resolve:280:11) at moduleResolve (node:internal/modules/esm/resolve:870:10) at moduleResolveWithNodePath (node:internal/modules/esm/resolve:996:14) at defaultResolve (node:internal/modules/esm/resolve:1039:79) at #cachedDefaultResolve (node:internal/modules/esm/loader:757:20) at ModuleLoader.resolve (node:internal/modules/esm/loader:734:38) at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:317:38) at #link (node:internal/modules/esm/module_job:208:49) at process.processTicksAndRejections (node:internal/process/task_queues:105:5) { code: 'ERR_MODULE_NOT_FOUND', url: 'file:///var/task/api/lib/mongodb' } Node.js process exited with exit status: 1. The logs above can help with debugging the issue.
+Jan 07 11:20:15.79
+GET
+500
+shipnew-88dcce502-hamzaworks01-gmailcoms-projects.vercel.app
+/api/notes
+Error [ERR_MODULE_NOT_FOUND]: Cannot find module '/var/task/api/lib/mongodb' imported from /var/task/api/notes/index.js at finalizeResolution (node:internal/modules/esm/resolve:280:11) at moduleResolve (node:internal/modules/esm/resolve:870:10) at moduleResolveWithNodePath (node:internal/modules/esm/resolve:996:14) at defaultResolve (node:internal/modules/esm/resolve:1039:79) at #cachedDefaultResolve (node:internal/modules/esm/loader:757:20) at ModuleLoader.resolve (node:internal/modules/esm/loader:734:38) at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:317:38) at #link (node:internal/modules/esm/module_job:208:49) at process.processTicksAndRejections (node:internal/process/task_queues:105:5) { code: 'ERR_MODULE_NOT_FOUND', url: 'file:///var/task/api/lib/mongodb' } Node.js process exited with exit status: 1. The logs above can help with debugging the issue.
+Jan 07 11:20:15.79
+GET
+500
+shipnew-88dcce502-hamzaworks01-gmailcoms-projects.vercel.app
+/api/shipments
+Error [ERR_MODULE_NOT_FOUND]: Cannot find module '/var/task/api/lib/mongodb' imported from /var/task/api/shipments/index.js at finalizeResolution (node:internal/modules/esm/resolve:280:11) at moduleResolve (node:internal/modules/esm/resolve:870:10) at moduleResolveWithNodePath (node:internal/modules/esm/resolve:996:14) at defaultResolve (node:internal/modules/esm/resolve:1039:79) at #cachedDefaultResolve (node:internal/modules/esm/loader:757:20) at ModuleLoader.resolve (node:internal/modules/esm/loader:734:38) at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:317:38) at #link (node:internal/modules/esm/module_job:208:49) at process.processTicksAndRejections (node:internal/process/task_queues:105:5) { code: 'ERR_MODULE_NOT_FOUND', url: 'file:///var/task/api/lib/mongodb' } Node.js process exited with exit status: 1. The logs above can help with debugging the issue.
+Jan 07 11:20:03.07
+GET
+---
+shipnew-88dcce502-hamzaworks01-gmailcoms-projects.vercel.app
+/api/shipments
+Error [ERR_MODULE_NOT_FOUND]: Cannot find module '/var/task/api/lib/mongodb' imported from /var/task/api/shipments/index.js at finalizeResolution (node:internal/modules/esm/resolve:280:11) at moduleResolve (node:internal/modules/esm/resolve:870:10) at moduleResolveWithNodePath (node:internal/modules/esm/resolve:996:14) at defaultResolve (node:internal/modules/esm/resolve:1039:79) at #cachedDefaultResolve (node:internal/modules/esm/loader:757:20) at ModuleLoader.resolve (node:internal/modules/esm/loader:734:38) at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:317:38) at #link (node:internal/modules/esm/module_job:208:49) at process.processTicksAndRejections (node:internal/process/task_queues:105:5) { code: 'ERR_MODULE_NOT_FOUND', url: 'file:///var/task/api/lib/mongodb' } Node.js process exited with exit status: 1. The logs above can help with debugging the issue.
+Jan 07 11:20:03.07
+GET
+500
+shipnew-88dcce502-hamzaworks01-gmailcoms-projects.vercel.app
+/api/notes
+Error [ERR_MODULE_NOT_FOUND]: Cannot find module '/var/task/api/li
